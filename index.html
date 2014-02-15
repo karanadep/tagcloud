@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tag Cloud with Highest Score at the center</title>
+<script src="jquery-1.9.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var tags 		= new Array();
+	var tags_only_fontsize 		= new Array();
+	$('.box span').each(function(key,value){
+		tags[key] = {'font_size':parseInt($(this).css('font-size').slice(0,2)),'span_value':$(this).html()};
+		tags_only_fontsize.push(parseInt($(this).css('font-size').slice(0,2)));
+	});
+	
+	//parse element, order them with biggest tag in center 
+	var before_after = 0;
+	var tags_center = Math.round(tags.length/2);
+	var before = tags_center;
+	var after = tags_center + 1;
+	var tags_output = new Array();
+
+	$(tags).each(function(key,value){
+		//get highest value from tags
+		var HighestScore = Math.max.apply(Math,tags_only_fontsize);
+
+		//get index of highest
+		var index = tags_only_fontsize.indexOf(HighestScore);
+
+		//push highest value to a new array
+		if(before_after) {
+		//add before
+			tags_output[before] = tags[index];
+			before = before - 1;
+			before_after = 0;
+		} else {
+		//add after
+			tags_output[after] = tags[index];
+			after = after + 1;
+			before_after = 1;
+		}
+		
+		//remove highest tag, so as to get next highest in next loop
+		if (index > -1) {
+			tags_only_fontsize.splice(index, 1);
+			tags.splice(index, 1);
+		}
+				
+	});
+	
+	//showing data
+	$(tags_output).each(function(key){
+	if(tags_output[key + 1].font_size !== undefined)
+	{
+		$(".box2").append('<span class="text" style="font-size:'+tags_output[key + 1].font_size+'px;">'+tags_output[key + 1].span_value+'</span>');
+	}
+	});
+});
+</script>
+<style type="text/css">
+.box, .box2 {
+	width:600px;
+	height:550px;
+	background-color:#CCFFFF;
+	margin:0 auto;
+	padding:0px;
+	margin-bottom:30px;
+}
+.text {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#000000;
+	margin:0px 10px;
+	float: left;
+}
+h1{
+	width:600px;
+	margin:0 auto;
+	padding:0px;
+	margin-bottom:0px;
+}
+</style>
+</head>
+<body>
+<h1>Random Tags</h1>
+<div class="box"> <span class="text" style="font-size:15px;">Lorem Ipsum</span> <span class="text" style="font-size:35px;">simply</span> <span class="text" style="font-size:25px;">type</span> <span class="text" style="font-size:19px;">software</span> <span class="text" style="font-size:13px;">passage</span> <span class="text" style="font-size:18px;">Latin</span> <span class="text" style="font-size:40px;">embarrassing</span> <span class="text" style="font-size:30px;">humour</span> <span class="text" style="font-size:23px;">slightly</span> <span class="text" style="font-size:27px;">characteristic</span> <span class="text" style="font-size:33px;">believabl</span> <span class="text" style="font-size:16px;">uses</span> <span class="text" style="font-size:14px;">College</span> <span class="text" style="font-size:10px;">Maloru</span> <span class="text" style="font-size:17px;">Extremes</span> <span class="text" style="font-size:26px;">PageMaker</span> <span class="text" style="font-size:29px;">publishing</span> <span class="text" style="font-size:30px;">sites</span> <span class="text" style="font-size:35px;">acciden</span> <span class="text" style="font-size:37px;">release</span> <span class="text" style="font-size:40px;">literatur</span> <span class="text" style="font-size:20px;">during</span> <span class="text" style="font-size:25px;">consectetu</span> <span class="text" style="font-size:29px;">content</span> <span class="text" style="font-size:29px;">still</span> <span class="text" style="font-size:16px;">standard</span> <span class="text" style="font-size:19px;">Sections</span> <span class="text" style="font-size:12px;">Rackha</span> <span class="text" style="font-size:13px;">translation</span> <span class="text" style="font-size:15px;">Lorem Ipsum</span> <span class="text" style="font-size:35px;">simply</span> <span class="text" style="font-size:15px;">type</span> <span class="text" style="font-size:9px;">software</span> <span class="text" style="font-size:13px;">passage</span> <span class="text" style="font-size:18px;">Latin</span> <span class="text" style="font-size:50px;">embarrassing</span> <span class="text" style="font-size:45px;">humour</span> <span class="text" style="font-size:23px;">slightly</span> <span class="text" style="font-size:27px;">characteristic</span> <span class="text" style="font-size:33px;">believabl</span> <span class="text" style="font-size:16px;">uses</span> <span class="text" style="font-size:14px;">College</span> <span class="text" style="font-size:10px;">Maloru</span> <span class="text" style="font-size:17px;">Extremes</span> <span class="text" style="font-size:26px;">PageMaker</span> <span class="text" style="font-size:29px;">publishing</span> <span class="text" style="font-size:30px;">sites</span> <span class="text" style="font-size:35px;">acciden</span> <span class="text" style="font-size:37px;">release</span> <span class="text" style="font-size:40px;">literatur</span> <span class="text" style="font-size:20px;">during</span> <span class="text" style="font-size:25px;">consectetu</span> <span class="text" style="font-size:29px;">content</span> <span class="text" style="font-size:29px;">still</span> <span class="text" style="font-size:16px;">standard</span> <span class="text" style="font-size:19px;">Sections</span> <span class="text" style="font-size:12px;">Rackha</span> <span class="text" style="font-size:13px;">translation</span> </div>
+<h1>Tags with Highest Score at the center</h1>
+<div class="box2"> </div>
+</body>
+</html>
